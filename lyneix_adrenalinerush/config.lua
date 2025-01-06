@@ -39,5 +39,5 @@ Config.Notify = {
 -- Chat messages
 Config.Messages = {
     AdrenalineActivated = "Adrenaline Rush activated!",
-    AdrenalineEnded = "Adrenaline Rush has ended."
+    AdrenalineEnded = "Adrenaline Rush has ended. Cooldown {cooldown}s."
 }
