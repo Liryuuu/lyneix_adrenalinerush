@@ -18,7 +18,7 @@ The **Adrenaline Rush Script** is an immersive and fun gameplay addition for you
 
 ### 🔧 Installation
 1. **Download the script**:
-   - Clone the repository or [download it here](https://github.com/your-repo-link).
+   - Clone the repository or [download it here](https://github.com/Liryuuu/lyneix_adrenalinerush).
 2. **Add to your server**:
    - Place the `lyneix_adrenalinerush` folder in your server's `resources` directory.
 3. **Update your `server.cfg`**:
