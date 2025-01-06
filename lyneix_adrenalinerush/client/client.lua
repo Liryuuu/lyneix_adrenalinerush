@@ -1,6 +1,6 @@
 local recentlyDamagedByVehicle = false
 local BUILD = GetGameBuildNumber()
-
+local playerTimeouts = {}
 -- Framework detection (same as before)
 Citizen.CreateThread(function()
     if GetResourceState('es_extended') == 'started' then
@@ -55,11 +55,12 @@ AddEventHandler('gameEventTriggered', function(eventName, args)
 
         local isMelee = args[i] == true i = i + 1
         local vehicleDamageTypeFlag = args[i] i = i + 1
-
+        local player = PlayerPedId()
+            
         -- Check if player was hit by a configured vehicle damage type
         if IsWeaponHashInConfig(weaponHash) then
             if victim == PlayerPedId() then
-                if recentlyDamagedByVehicle == false then
+                if recentlyDamagedByVehicle == false and playerTimeouts[player] == nil then
                     AdrenalineRush(Config.AdrenalineDuration)
                 end
             end
@@ -79,7 +80,15 @@ end
 function AdrenalineRush(duration)
     recentlyDamagedByVehicle = true
     local player = PlayerPedId()
+    
+    -- Prevent duplicate activations
+    if playerTimeouts[player] then
+        return
+    end
 
+    -- Mark the player as "in cooldown"
+    playerTimeouts[player] = true
+    
     -- Apply visual effects
     StartScreenEffect(Config.Effects.ScreenEffect, 0, false)
     ShakeGameplayCam(Config.Effects.CamShakeType, Config.Effects.CamShakeIntensity)
@@ -119,4 +128,8 @@ function AdrenalineRush(duration)
         NotifyPlayer(Config.Messages.AdrenalineEnded)
     end
     recentlyDamagedByVehicle = false
+    -- Start the cooldown timeout
+    Citizen.SetTimeout(Config.Cooldown * 1000, function()
+        playerTimeouts[player] = nil
+    end)
 end
