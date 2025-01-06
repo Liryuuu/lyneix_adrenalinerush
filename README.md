@@ -1,6 +1,10 @@
 # Lyneix AdrenalineRush Script
 **Made with love and high caffeine by Lyneix_Team**
 
+"The original idea for this script came from my frustration with those dirt heads who think it’s hilarious to randomly ram people down with vehicles. Whether it’s intentional or just bad driving, the victim never stands a chance to fight back! So, I thought, why not give players the power of an action movie hero instead of leaving them helpless? And thus, the Adrenaline Rush Script was born. You’re welcome, humanity."
+
+P.S. I’ve got what’s supposed to be a 9-to-5 job, but thanks to forced overtime, it’s more like 10 PM to 10 AM Bangkok time (GMT+7). My free time is limited, but I’ll still do my best to support you when I can—just bear with me if I’m running on caffeine and sheer determinatio
+
 ### 🚀 What is this?
 The **Adrenaline Rush Script** is an immersive and fun gameplay addition for your FiveM server. It introduces adrenaline boosts when players are hit by vehicles, turning collisions into action-packed moments. Whether you’re using **ESX**, **QB-Core**, or running standalone, this script has you covered.
 
