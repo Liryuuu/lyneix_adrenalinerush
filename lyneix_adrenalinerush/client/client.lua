@@ -125,8 +125,10 @@ function AdrenalineRush(duration)
 
     -- Notify player if enabled
     if Config.Notify.Enabled then
-        NotifyPlayer(Config.Messages.AdrenalineEnded)
+        local cooldownMessage = string.gsub(Config.Messages.AdrenalineEnded, "{cooldown}", tostring(Config.Cooldown))
+        NotifyPlayer(cooldownMessage)
     end
+    
     recentlyDamagedByVehicle = false
     -- Start the cooldown timeout
     Citizen.SetTimeout(Config.Cooldown * 1000, function()
