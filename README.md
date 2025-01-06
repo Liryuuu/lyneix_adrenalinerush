@@ -8,7 +8,7 @@ The **Adrenaline Rush Script** is an immersive and fun gameplay addition for you
 
 ### 🌟 Features
 - **Speed Boost**: Players can run faster during adrenaline rush.
-- **Temporary Invincibility**: Laugh in the face of danger (note: injury systems in `qb-ambulancejob` are not automatically handled; see instructions for modifications).
+- **Temporary Invincibility**: Laugh in the face of danger (note: injury systems in `qb-ambulancejob` are not automatically handled; not yet implemented).
 - **Immersive Visual Effects**: Screen shake, focus mode, and more.
 - **Custom Notifications**: Fully customizable through the `config.lua` file.
 - **Framework Compatibility**: Works with ESX, QB-Core, and standalone servers.
