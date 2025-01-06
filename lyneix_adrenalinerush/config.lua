@@ -1,6 +1,7 @@
 Config = {}
 
 -- Adrenaline rush settings
+Config.Cooldown = 30 -- Cooldown duration in seconds
 Config.AdrenalineDuration = 10 -- Duration in seconds
 Config.SpeedMultiplier = 1.5 -- Sprint speed multiplier
 Config.MoveRateMultiplier = 1.5 -- Movement rate multiplier
