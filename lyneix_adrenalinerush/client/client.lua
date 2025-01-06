@@ -16,6 +16,7 @@ end)
 
 -- Function to notify player with priority for custom Config.Notify.NotifyFunction
 function NotifyPlayer(message)
+-- this logic is not work as it intended I'll update it later my caffeine is running low sry
     if Framework == 'ESX' then
         -- Fall back to ESX notification
         ESX.ShowNotification(message)
