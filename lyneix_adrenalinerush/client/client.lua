@@ -58,7 +58,7 @@ AddEventHandler('gameEventTriggered', function(eventName, args)
             
         -- Check if player was hit by a configured vehicle damage type
         if IsWeaponHashInConfig(weaponHash) then
-            if victim == PlayerPedId() then
+            if victim == PlayerPedId() and isFatal == false then
                 if recentlyDamagedByVehicle == false and playerTimeouts[player] == nil then
                     AdrenalineRush(Config.AdrenalineDuration)
                 end
@@ -79,7 +79,8 @@ end
 function AdrenalineRush(duration)
     recentlyDamagedByVehicle = true
     local player = PlayerPedId()
-    
+    local ByPassInjuryClipset = false
+
     -- Prevent duplicate activations
     if playerTimeouts[player] then
         return
@@ -111,6 +112,17 @@ function AdrenalineRush(duration)
         NotifyPlayer(Config.Messages.AdrenalineActivated)
     end
 
+    -- ByPassInjuryClipset if enabled
+    if Config.ByPassInjuryClipset then
+        while IsPedRagdoll(player) do Wait(0) end
+        if (GetPedMovementClipset(player) == `move_m@injured`) then
+            SetPlayerSprint(PlayerId(), true)
+            ResetPedMovementClipset(player, 0.0)
+            SetPedCanRagdoll(player,false)
+            ByPassInjuryClipset = true
+        end
+    end
+
     -- Wait for the effect duration
     Citizen.Wait(duration * 1000)
 
@@ -128,6 +140,17 @@ function AdrenalineRush(duration)
         NotifyPlayer(cooldownMessage)
     end
     
+    -- restore clipset from Injury
+    if ByPassInjuryClipset == true then
+        RequestAnimSet('move_m@injured')
+        while not HasAnimSetLoaded('move_m@injured') do
+            Wait(0)
+        end
+        SetPedMovementClipset(player, 'move_m@injured', 1)
+        SetPedCanRagdoll(player,true)
+        ByPassInjuryClipset = false
+    end
+
     recentlyDamagedByVehicle = false
     -- Start the cooldown timeout
     Citizen.SetTimeout(Config.Cooldown * 1000, function()
