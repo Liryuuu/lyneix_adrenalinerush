@@ -6,6 +6,9 @@
 P.S. I’ve got what’s supposed to be a 9-to-5 job, but thanks to forced overtime, it’s more like 10 PM to 10 AM Bangkok time (GMT+7). My free time is limited, but I’ll still do my best to support you when I can—just bear with me if I’m running on caffeine and sheer determinatio
 
 ### 🚀 What is this?
+
+In short makes every vehicle collision a potential story instead of a game-ending moment. More thrills, more drama, more fun! 🚗⚡
+
 The **Adrenaline Rush Script** is an immersive and fun gameplay addition for your FiveM server. It introduces adrenaline boosts when players are hit by vehicles, turning collisions into action-packed moments. Whether you’re using **ESX**, **QB-Core**, or running standalone, this script has you covered.
 
 ---
