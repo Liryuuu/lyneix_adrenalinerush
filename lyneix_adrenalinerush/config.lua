@@ -6,6 +6,7 @@ Config.AdrenalineDuration = 10 -- Duration in seconds
 Config.SpeedMultiplier = 1.5 -- Sprint speed multiplier
 Config.MoveRateMultiplier = 1.5 -- Movement rate multiplier
 Config.Invincibility = true -- Enable/disable invincibility during adrenaline rush
+Config.ByPassInjuryClipset = true -- Enable/disable ByPassInjuryClipset during adrenaline rush, If you use qb-ambulancejob and want player to run normal when in adrenaline effect enabled this
 
 -- Weapon hashes for vehicle-related damage
 Config.WeaponHashes = {
@@ -31,8 +32,8 @@ Config.Sounds = {
 Config.Notify = {
     Enabled = true, -- Enable/disable notifications
     NotifyFunction = function(message)
-        -- Custom notification logic; use NotifyFunction = nil to skip to use Framework notifications
-        return TriggerEvent('chat:addMessage', { args = { "Custom Notify", message } })
+        -- Custom notification logic; use NotifyFunction = nil to skip to use Framework notifications, Dafault notufy for this func is display in server chat.
+        TriggerEvent('chat:addMessage', { args = { "Custom Notify", message } })
     end 
 }
 
