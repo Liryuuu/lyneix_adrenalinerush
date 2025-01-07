@@ -8,6 +8,9 @@ P.S. I’ve got what’s supposed to be a 9-to-5 job, but thanks to forced overt
 ### 🚀 What is this?
 
 In short makes every vehicle collision a potential story instead of a game-ending moment. More thrills, more drama, more fun! 🚗⚡
+- Temporary Invincibility when get hit by a car 
+- Temporary Stamina boost
+- Temporary Don't feel any Injury
 
 The **Adrenaline Rush Script** is an immersive and fun gameplay addition for your FiveM server. It introduces adrenaline boosts when players are hit by vehicles, turning collisions into action-packed moments. Whether you’re using **ESX**, **QB-Core**, or running standalone, this script has you covered.
 
