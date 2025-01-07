@@ -31,7 +31,7 @@ Config.Sounds = {
 Config.Notify = {
     Enabled = true, -- Enable/disable notifications
     NotifyFunction = function(message)
-        -- Custom notification logic; leave nil to skip to use Framework notifications
+        -- Custom notification logic; use NotifyFunction = nil to skip to use Framework notifications
         return TriggerEvent('chat:addMessage', { args = { "Custom Notify", message } })
     end 
 }
