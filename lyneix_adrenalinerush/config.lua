@@ -20,7 +20,7 @@ Config.Effects = {
     CamShakeIntensity = 0.1 -- Intensity of the camera shake
 }
 
--- Audio settings
+-- Audio settings https://wiki.rage.mp/index.php?title=Sounds
 Config.Sounds = {
     Enabled = true, -- Enable/disable sound effects
     SoundName = "TIMER_STOP",
