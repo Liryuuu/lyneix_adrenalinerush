@@ -1,7 +1,7 @@
 local recentlyDamagedByVehicle = false
 local BUILD = GetGameBuildNumber()
 local playerTimeouts = {}
--- Framework detection (same as before)
+
 Citizen.CreateThread(function()
     if GetResourceState('es_extended') == 'started' then
         Framework = 'ESX'
@@ -16,21 +16,19 @@ end)
 
 -- Function to notify player with priority for custom Config.Notify.NotifyFunction
 function NotifyPlayer(message)
--- this logic is not work as it intended I'll update it later my caffeine is running low sry
-    if Framework == 'ESX' then
+    if Config.Notify.NotifyFunction then
+        -- Use custom notification function from config
+        Config.Notify.NotifyFunction(message)
+    elseif Framework == 'ESX' then
         -- Fall back to ESX notification
         ESX.ShowNotification(message)
     elseif Framework == 'QB' then
         -- Fall back to QB notification
         QBCore.Functions.Notify(message, 'error')
-        
-    elseif Config.Notify.NotifyFunction then
-        -- Use custom notification function from config
-        Config.Notify.NotifyFunction(message)
-    end
+    end    
 end
 
--- Event listener for entity damage
+-- Event listener for entity damage, thx VPagani for showing how he handle this event so I can get this script working https://forum.cfx.re/t/b2060-b2189-game-event-ceventnetworkentitydamage-not-working-as-expected/1922652/8?u=liryuuu
 AddEventHandler('gameEventTriggered', function(eventName, args)
     if eventName == "CEventNetworkEntityDamage" then
         local i = 1
