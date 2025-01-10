@@ -9,6 +9,7 @@ Citizen.CreateThread(function()
     elseif GetResourceState('qb-core') == 'started' then
         Framework = 'QB'
         QBCore = exports['qb-core']:GetCoreObject()
+        
     else
         print('No supported framework detected. Defaulting to standalone mode.')
     end
@@ -34,7 +35,6 @@ AddEventHandler('gameEventTriggered', function(eventName, args)
         local i = 1
         local victim = args[i] i = i + 1
         local attacker = args[i] i = i + 1
-        
         -- Skip unknown value
         i = i + 1 
 
@@ -55,12 +55,14 @@ AddEventHandler('gameEventTriggered', function(eventName, args)
         local isMelee = args[i] == true i = i + 1
         local vehicleDamageTypeFlag = args[i] i = i + 1
         local player = PlayerPedId()
-            
+        if victim == player and args[6] == 1 then
+            CleanupAdrenalineRush()
+        end
         -- Check if player was hit by a configured vehicle damage type
         if IsWeaponHashInConfig(weaponHash) then
-            if victim == PlayerPedId() and isFatal == false then
+            if victim == player and args[6] == 0 then
                 if recentlyDamagedByVehicle == false and playerTimeouts[player] == nil then
-                    AdrenalineRush(Config.AdrenalineDuration)
+                    StartAdrenalineRush(Config.AdrenalineDuration)
                 end
             end
         end        
@@ -75,8 +77,9 @@ function IsWeaponHashInConfig(weaponHash)
     end
     return false
 end
--- Function to apply adrenaline rush effect
-function AdrenalineRush(duration)
+
+-- Function to start the adrenaline rush effect
+function StartAdrenalineRush(duration)
     recentlyDamagedByVehicle = true
     local player = PlayerPedId()
     local ByPassInjuryClipset = false
@@ -86,9 +89,13 @@ function AdrenalineRush(duration)
         return
     end
 
+    if IsPedDeadOrDying(player, true) then
+        return
+    end
+
     -- Mark the player as "in cooldown"
     playerTimeouts[player] = true
-    
+
     -- Apply visual effects
     StartScreenEffect(Config.Effects.ScreenEffect, 0, false)
     ShakeGameplayCam(Config.Effects.CamShakeType, Config.Effects.CamShakeIntensity)
@@ -98,7 +105,9 @@ function AdrenalineRush(duration)
     SetPedMoveRateOverride(player, Config.MoveRateMultiplier)
     SetPlayerStamina(PlayerId(), 100.0)
 
-    if Config.Invincibility then
+    if Config.UseGroundDamageProof then
+        SetEntityProofs(player, false, false, false, false, false, true, false, false)
+    elseif Config.Invincibility then
         SetEntityInvincible(player, true)
     end
 
@@ -112,13 +121,18 @@ function AdrenalineRush(duration)
         NotifyPlayer(Config.Messages.AdrenalineActivated)
     end
 
+    -- Call user-defined function on adrenaline start
+    if Config.OnStartAdrenaline then
+        Config.OnStartAdrenaline()
+    end
+
     -- ByPassInjuryClipset if enabled
     if Config.ByPassInjuryClipset then
         while IsPedRagdoll(player) do Wait(0) end
         if (GetPedMovementClipset(player) == `move_m@injured`) then
             SetPlayerSprint(PlayerId(), true)
             ResetPedMovementClipset(player, 0.0)
-            SetPedCanRagdoll(player,false)
+            SetPedCanRagdoll(player, false)
             ByPassInjuryClipset = true
         end
     end
@@ -126,34 +140,66 @@ function AdrenalineRush(duration)
     -- Wait for the effect duration
     Citizen.Wait(duration * 1000)
 
-    -- Reset effects
+    -- End the adrenaline rush
+    EndAdrenalineRush(player, ByPassInjuryClipset)
+end
+
+-- Function to end the adrenaline rush effect
+function EndAdrenalineRush(player, ByPassInjuryClipset,Clean)
+    -- Reset visual effects
     StopScreenEffect(Config.Effects.ScreenEffect)
     StopGameplayCamShaking(true)
     SetRunSprintMultiplierForPlayer(PlayerId(), 1.0)
     SetPedMoveRateOverride(player, 1.0)
-    SetEntityInvincible(player, false)
-    
+
+    if Config.UseGroundDamageProof then
+        SetEntityProofs(player, false, false, false, false, false, false, false, false)
+    elseif Config.Invincibility then
+        SetEntityInvincible(player, false)
+    end
 
     -- Notify player if enabled
     if Config.Notify.Enabled then
         local cooldownMessage = string.gsub(Config.Messages.AdrenalineEnded, "{cooldown}", tostring(Config.Cooldown))
         NotifyPlayer(cooldownMessage)
     end
-    
-    -- restore clipset from Injury
-    if ByPassInjuryClipset == true then
+
+    -- Restore injury clipset if bypassed
+    if ByPassInjuryClipset then
         RequestAnimSet('move_m@injured')
         while not HasAnimSetLoaded('move_m@injured') do
             Wait(0)
         end
         SetPedMovementClipset(player, 'move_m@injured', 1)
-        SetPedCanRagdoll(player,true)
-        ByPassInjuryClipset = false
+        SetPedCanRagdoll(player, true)
+    end
+    if Clean then
+        SetPedCanRagdoll(player, true)
     end
 
     recentlyDamagedByVehicle = false
+
+    -- Call user-defined function on adrenaline end
+    if Config.OnEndAdrenaline then
+        Config.OnEndAdrenaline()
+    end
+
     -- Start the cooldown timeout
     Citizen.SetTimeout(Config.Cooldown * 1000, function()
         playerTimeouts[player] = nil
     end)
 end
+
+-- Cleanup function to ensure proper state on script restart
+function CleanupAdrenalineRush()
+    for player, _ in pairs(playerTimeouts) do
+        EndAdrenalineRush(player, false, true)
+    end
+end
+
+-- Ensure cleanup on resource stop
+AddEventHandler('onResourceStop', function(resourceName)
+    if GetCurrentResourceName() == resourceName then
+        CleanupAdrenalineRush()
+    end
+end)
