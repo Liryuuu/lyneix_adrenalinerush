@@ -9,8 +9,8 @@ Config.Invincibility = true -- Enable/disable invincibility during adrenaline ru
 Config.UseGroundDamageProof = true -- Toggle between ground damage proof and invincibility
 
 --** !IMPORTANT! **---------------------------------------------------------------------------------------------
--- If Config.ByPassInjuryClipset = true when you already in effect and get hit again 
--- it kinda hard-animation cause it setplayer can't ragdoll i'm gonna find a work around on this in next update.
+-- If Config.ByPassInjuryClipset = true when you already in effect and get hit by vehicle again 
+-- it kinda make a weird and janky-animation cause it make player can't ragdoll, i'm gonna find a work around on this in next update.
 ----------------------------------------------------------------------------------------------------------------
 Config.ByPassInjuryClipset = true -- Enable/disable ByPassInjuryClipset during adrenaline rush, If you use qb-ambulancejob and want player to run normal when in adrenaline effect enabled this
 
