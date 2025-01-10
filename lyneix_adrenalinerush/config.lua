@@ -1,12 +1,20 @@
 Config = {}
 
 -- Adrenaline rush settings
-Config.Cooldown = 30 -- Cooldown duration in seconds
+Config.Cooldown = 10 -- Cooldown duration in seconds
 Config.AdrenalineDuration = 10 -- Duration in seconds
 Config.SpeedMultiplier = 1.5 -- Sprint speed multiplier
 Config.MoveRateMultiplier = 1.5 -- Movement rate multiplier
 Config.Invincibility = true -- Enable/disable invincibility during adrenaline rush
+Config.UseGroundDamageProof = true -- Toggle between ground damage proof and invincibility
+
+--** !IMPORTANT! **---------------------------------------------------------------------------------------------
+-- If Config.ByPassInjuryClipset = true when you already in effect and get hit again 
+-- it kinda hard-animation cause it setplayer can't ragdoll i'm gonna find a work around on this in next update.
+----------------------------------------------------------------------------------------------------------------
 Config.ByPassInjuryClipset = true -- Enable/disable ByPassInjuryClipset during adrenaline rush, If you use qb-ambulancejob and want player to run normal when in adrenaline effect enabled this
+
+
 
 -- Weapon hashes for vehicle-related damage
 Config.WeaponHashes = {
@@ -42,3 +50,10 @@ Config.Messages = {
     AdrenalineActivated = "Adrenaline Rush activated!",
     AdrenalineEnded = "Adrenaline Rush has ended. Cooldown {cooldown}s."
 }
+
+Config.OnStartAdrenaline = function()
+    print("Adrenaline Rush Started!") -- Add your custom logic here
+end
+Config.OnEndAdrenaline = function()
+    print("Adrenaline Rush Ended!") -- Add your custom logic here
+end
