@@ -1,7 +1,11 @@
 # Lyneix AdrenalineRush Script
 **Made with love and high caffeine by Lyneix_Team**
-[>> Forum Post <<]([https://github.com/Liryuuu/lyneix_adrenalinerush](https://forum.cfx.re/t/free-adrenaline-rush-script-lyneix-team/5296560)).
-Update v1.2
+
+
+[Forum Post](https://forum.cfx.re/t/free-adrenaline-rush-script-lyneix-team/5296560).
+
+
+### Update v1.2
 ### 🔧 Bug Fixes:
 - Effect still happen event player instant dead
 
