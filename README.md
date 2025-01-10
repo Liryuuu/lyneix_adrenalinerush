@@ -1,5 +1,17 @@
 # Lyneix AdrenalineRush Script
 **Made with love and high caffeine by Lyneix_Team**
+[>> Forum Post <<]([https://github.com/Liryuuu/lyneix_adrenalinerush](https://forum.cfx.re/t/free-adrenaline-rush-script-lyneix-team/5296560)).
+Update v1.2
+### 🔧 Bug Fixes:
+- Effect still happen event player instant dead
+
+### 🐞 Known bugs TT -(I'm gonna find a way to make this gone in next update T^T)
+- Ragdoll animation is feel off when player get hit another time after adrenaline is taking effect
+
+### ✨ ADDED FEATURE
+- Added OnStartAdrenaline,OnEndAdrenaline in config.lua for you to tweak what ever you want to it.
+- Make script cleanup after restart or ensure script.
+- Added UseGroundDamageProof in config.lua for if you want player to just immune to only collisionProof than invincible to all damage
 
 "The original idea for this script came from my frustration with those dirt heads who think it’s hilarious to randomly ram people down with vehicles. Whether it’s intentional or just bad driving, the victim never stands a chance to fight back! So, I thought, why not give players the power of an action movie hero instead of leaving them helpless? And thus, the Adrenaline Rush Script was born. You’re welcome, humanity."
 
