@@ -4,7 +4,7 @@ Config.Debug = false
 -- Adrenaline rush settings
 Config.Cooldown = 30 -- Cooldown duration in seconds
 Config.AdrenalineDuration = 10 -- Duration in seconds
-Config.SpeedMultiplier = 1.49 -- Sprint speed multiplier Multiplier goes up to 1.49 any value above will be completely overruled by the game
+Config.SpeedMultiplier = 1.2 -- Sprint speed multiplier Multiplier goes up to 1.49 any value above will be completely overruled by the game
 Config.Invincibility = false -- Enable/disable invincibility during adrenaline rush
 Config.UseGroundDamageProof = true -- Enable/disable ground damage proof during adrenaline rush  
 Config.RestorePlayerStamina = 100 -- percent of player stamina that gonna be restore when adrenaline rush
@@ -39,7 +39,27 @@ Config.Sounds = {
 -- Notifications
 Config.Notify = {
     Enabled = true, -- Enable/disable notifications
+    
     UseOxLib = true, -- Enable ox_lib notifications , it gonna overide NotifyFunction
+    OxLibFunction = function(message)
+        -- If UseOxLib = false ,Custom notification logic; defaults to server chat if enabled
+        lib.notify({
+            title = 'Adrenaline Rush',
+            description = message,
+            showDuration = false,
+            position = 'top',
+            style = {
+                backgroundColor = '#141517',
+                color = '#C1C2C5',
+                ['.description'] = {
+                  color = '#ffff00'
+                }
+            },
+            icon = 'bolt',
+            iconColor = '#ffff00'
+        })
+    end,
+
     NotifyFunction = function(message)
         -- If UseOxLib = false ,Custom notification logic; defaults to server chat if enabled
         TriggerEvent('chat:addMessage', { args = { "Custom Notify", message } })
