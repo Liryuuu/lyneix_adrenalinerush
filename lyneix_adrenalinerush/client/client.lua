@@ -141,7 +141,7 @@ function StartAdrenalineRush(duration)
 
     -- Notify player if enabled
     if Config.Notify.Enabled then
-        NotifyPlayer(Config.Messages.AdrenalineActivated,'info')
+        NotifyPlayer(Config.Messages.AdrenalineActivated,'inform')
     end
 
     -- Call user-defined function on adrenaline start
@@ -189,7 +189,7 @@ function EndAdrenalineRush(player, ByPassInjuryClipset,Clean)
     -- Notify player if enabled
     if Config.Notify.Enabled then
         local cooldownMessage = string.gsub(Config.Messages.AdrenalineEnded, "{cooldown}", tostring(Config.Cooldown))
-        NotifyPlayer(cooldownMessage,'info')
+        NotifyPlayer(cooldownMessage,'inform')
     end
 
     -- Restore injury clipset if bypassed
