@@ -1,20 +1,20 @@
 Config = {}
 
+Config.Debug = false
 -- Adrenaline rush settings
 Config.Cooldown = 30 -- Cooldown duration in seconds
 Config.AdrenalineDuration = 10 -- Duration in seconds
-Config.SpeedMultiplier = 1.5 -- Sprint speed multiplier
-Config.MoveRateMultiplier = 1.5 -- Movement rate multiplier
-Config.Invincibility = true -- Enable/disable invincibility during adrenaline rush
-Config.UseGroundDamageProof = true -- Toggle between ground damage proof and invincibility
+Config.SpeedMultiplier = 1.49 -- Sprint speed multiplier Multiplier goes up to 1.49 any value above will be completely overruled by the game
+Config.Invincibility = false -- Enable/disable invincibility during adrenaline rush
+Config.UseGroundDamageProof = true -- Enable/disable ground damage proof during adrenaline rush  
+Config.RestorePlayerStamina = 100 -- percent of player stamina that gonna be restore when adrenaline rush
 
---** !IMPORTANT! **---------------------------------------------------------------------------------------------
--- If Config.ByPassInjuryClipset = true when you already in effect and get hit by vehicle again 
--- it kinda make a weird and janky-animation cause it make player can't ragdoll, i'm gonna find a work around on this in next update.
-----------------------------------------------------------------------------------------------------------------
-Config.ByPassInjuryClipset = true -- Enable/disable ByPassInjuryClipset during adrenaline rush, If you use qb-ambulancejob and want player to run normal when in adrenaline effect enabled this
-
-
+Config.ByPassInjuryClipset = {
+    Enabled = true, -- Enable/disable ByPassInjuryClipset
+    UseQbAmbulanceJobInjury = true, -- Use qb-ambulancejob's Event for temporary ease player injury, set false to use disable ragdoll instead.
+    PainkillerMessage = "Using qb-ambulancejob Event. Adjust interval in qb-ambulancejob's config (default: 60s).",
+    NoQbAmbulanceNote = "Without qb-ambulancejob, player will have no ragdoll during adrenaline. This may cause janky animations if hit by a vehicle during adrenaline effects."
+}
 
 -- Weapon hashes for vehicle-related damage
 Config.WeaponHashes = {
@@ -39,10 +39,11 @@ Config.Sounds = {
 -- Notifications
 Config.Notify = {
     Enabled = true, -- Enable/disable notifications
+    UseOxLib = true, -- Enable ox_lib notifications , it gonna overide NotifyFunction
     NotifyFunction = function(message)
-        -- Custom notification logic; use NotifyFunction = nil to skip to use Framework notifications, Dafault notufy for this func is display in server chat.
+        -- If UseOxLib = false ,Custom notification logic; defaults to server chat if enabled
         TriggerEvent('chat:addMessage', { args = { "Custom Notify", message } })
-    end 
+    end,
 }
 
 -- Chat messages
