@@ -141,7 +141,7 @@ function StartAdrenalineRush(duration)
 
     -- Notify player if enabled
     if Config.Notify.Enabled then
-        NotifyPlayer(Config.Messages.AdrenalineActivated,'inform')
+        NotifyPlayer(Config.Messages.AdrenalineActivated,'info')
     end
 
     -- Call user-defined function on adrenaline start
@@ -189,7 +189,7 @@ function EndAdrenalineRush(player, ByPassInjuryClipset,Clean)
     -- Notify player if enabled
     if Config.Notify.Enabled then
         local cooldownMessage = string.gsub(Config.Messages.AdrenalineEnded, "{cooldown}", tostring(Config.Cooldown))
-        NotifyPlayer(cooldownMessage,'inform')
+        NotifyPlayer(cooldownMessage,'info')
     end
 
     -- Restore injury clipset if bypassed
@@ -272,7 +272,7 @@ function NotifyPlayer(message, type)
     elseif Config.Notify.UseOxLib then
         -- ox_lib notification fallback
         if exports and exports.ox_lib then
-            lib.notify({ description = message, type = notifyType })
+            Config.Notify.OxLibFunction(message)            
         else
             print("[Adrenaline Rush] ox_lib notification failed.")
         end
