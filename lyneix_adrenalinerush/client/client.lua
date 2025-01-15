@@ -2,8 +2,6 @@
 local lastAdrenalineTime = 0 -- Timestamp of last adrenaline activation
 local recentlyDamagedByVehicle = false -- Flag for vehicle damage check
 local ragdollPrevent = false --Flag for ragdoll check
--- Game environment variables
-local BUILD = GetGameBuildNumber() -- Current game build version
 
 -- Framework detection
 local Framework = '' -- Detected framework (e.g., ESX, QB-Core, Standalone)
@@ -141,7 +139,7 @@ function StartAdrenalineRush(duration)
 
     -- Notify player if enabled
     if Config.Notify.Enabled then
-        NotifyPlayer(Config.Messages.AdrenalineActivated,'info')
+        NotifyPlayer(Config.Messages.AdrenalineActivated)
     end
 
     -- Call user-defined function on adrenaline start
@@ -189,7 +187,7 @@ function EndAdrenalineRush(player, ByPassInjuryClipset,Clean)
     -- Notify player if enabled
     if Config.Notify.Enabled then
         local cooldownMessage = string.gsub(Config.Messages.AdrenalineEnded, "{cooldown}", tostring(Config.Cooldown))
-        NotifyPlayer(cooldownMessage,'info')
+        NotifyPlayer(cooldownMessage)
     end
 
     -- Restore injury clipset if bypassed
@@ -245,15 +243,24 @@ function IsWeaponHashInConfig(weaponHash)
 end
 
 -- Function to notify player with priority for custom Config.Notify.NotifyFunction
-function NotifyPlayer(message, type)
+function NotifyPlayer(message)
     if not Config.Notify.Enabled then return end -- Skip notifications if disabled
 
-    local notifyType = type or 'info' -- Default to 'info'
-
     -- Custom notification function
-    if Config.Notify.NotifyFunction and not Config.Notify.UseOxLib then
-        Config.Notify.NotifyFunction(message, notifyType)
+    if Config.Notify.NotifyFunction and Config.Notify.UseOxLib ~= true  then
+        Config.Notify.NotifyFunction(message)
         return
+    end
+
+    if Config.Notify.UseOxLib then
+    -- ox_lib notification fallback
+        if exports and exports.ox_lib then
+            Config.Notify.OxLibFunction(message)            
+            return
+        else
+            print("[Adrenaline Rush] ox_lib notification failed.")
+            return
+        end
     end
 
     -- Framework-based notifications
@@ -265,16 +272,9 @@ function NotifyPlayer(message, type)
         end
     elseif Framework == 'QB' then
         if QBCore and QBCore.Functions and QBCore.Functions.Notify then
-            QBCore.Functions.Notify(message, notifyType)
+            QBCore.Functions.Notify(message)
         else
             print("[Adrenaline Rush] QB notification failed.")
-        end
-    elseif Config.Notify.UseOxLib then
-        -- ox_lib notification fallback
-        if exports and exports.ox_lib then
-            Config.Notify.OxLibFunction(message)            
-        else
-            print("[Adrenaline Rush] ox_lib notification failed.")
         end
     elseif Framework == '' then
         -- Standalone fallback
