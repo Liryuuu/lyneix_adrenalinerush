@@ -5,42 +5,63 @@
 [Forum Post](https://forum.cfx.re/t/free-adrenaline-rush-script-lyneix-team/5296560).
 
 
-### Update v1.2
-### 🔧 Bug Fixes:
-- Effect still happen event player instant dead
+# **🖤 Adrenaline Rush Script v1.3 Update 🖤**
 
-### 🐞 Known bugs TT -(I'm gonna find a way to make this gone in next update T^T)
-- Ragdoll animation is feel off when player get hit another time after adrenaline is taking effect
+---
 
-### ✨ ADDED FEATURE
-- Added OnStartAdrenaline,OnEndAdrenaline in config.lua for you to tweak what ever you want to it.
-- Make script cleanup after restart or ensure script.
-- Added UseGroundDamageProof in config.lua for if you want player to just immune to only collisionProof than invincible to all damage
+### 🔄 **What's New in v1.3?**
+
+---
+
+### 🛠️ **Features & Improvements**
+1. **New Config Option: `RestorePlayerStamina`**  
+   - Decide whether the player's stamina should be restored during an adrenaline rush.  
+   - Fully configurable in the `config.lua` file.  
+
+2. **Revamped `Config.ByPassInjuryClipset`**  
+   - Choose between two methods for handling ragdoll behavior:  
+     - **Old Method**: Disable ragdoll, but note that it might cause some odd animations.  
+     - **New Method**: For servers using `qb-ambulancejob`, automatically trigger an event to suppress injuries during adrenaline rush.  
+
+3. **Optional Integration: `Config.Notify.UseOxLib`**  
+   - Added support for `ox_lib` notifications.  
+   - This feature is **optional** and works only if `ox_lib` is installed. No dependency headaches!  
+
+4. **Version Update in `fxmanifest.lua`**  
+   - Fixed the version text (oops, I’m still learning).  
+
+---
+
+### 🧹 **Code Improvements**
+- **Refactored Code for Fallback Options**  
+   - Restructured parts of the code to make it cleaner and easier to understand.  
+   - Improved fallback mechanisms for better compatibility.  
+
+---
+
+### 📝 **How to Update**
+1. Replace your current `lyneix_adrenalinerush` folder with the new version.  
+2. Update your `server.cfg` if necessary:  
+   ```plaintext
+   ensure lyneix_adrenalinerush
+3. Review the new configuration options in `config.lua`.
+  * Make changes as needed to customize the script for your server.
+
+---
+
+### ❤️ **Thank You!**
+
+This update is a result of your feedback and support. Keep it coming! 🙏
+
+* Have questions or feedback? Drop a reply here or DM me.
+* If you’re enjoying the script, share it with others!
+
+**– Lyneix_Team**
+
 
 "The original idea for this script came from my frustration with those dirt heads who think it’s hilarious to randomly ram people down with vehicles. Whether it’s intentional or just bad driving, the victim never stands a chance to fight back! So, I thought, why not give players the power of an action movie hero instead of leaving them helpless? And thus, the Adrenaline Rush Script was born. You’re welcome, humanity."
 
 P.S. I’ve got what’s supposed to be a 9-to-5 job, but thanks to forced overtime, it’s more like 10 PM to 10 AM Bangkok time (GMT+7). My free time is limited, but I’ll still do my best to support you when I can—just bear with me if I’m running on caffeine and sheer determinatio
-
-### 🚀 What is this?
-
-In short makes every vehicle collision a potential story instead of a game-ending moment. More thrills, more drama, more fun! 🚗⚡
-- Temporary Invincibility when get hit by a car 
-- Temporary Stamina boost
-- Temporary Don't feel any Injury
-
-The **Adrenaline Rush Script** is an immersive and fun gameplay addition for your FiveM server. It introduces adrenaline boosts when players are hit by vehicles, turning collisions into action-packed moments. Whether you’re using **ESX**, **QB-Core**, or running standalone, this script has you covered.
-
----
-
-### 🌟 Features
-- **Speed Boost**: Players can run faster during adrenaline rush.
-- **Temporary Invincibility**: Laugh in the face of danger (note: injury systems in `qb-ambulancejob` implemented in 1.1 update).
-- **Immersive Visual Effects**: Screen shake, focus mode, and more.
-- **Custom Notifications**: Fully customizable through the `config.lua` file.
-- **Framework Compatibility**: Works with ESX, QB-Core, and standalone servers.
-- **Open-Source**: MIT-licensed, free to use, modify, and share.
-
----
 
 ### 🔧 Installation
 1. **Download the script**:
