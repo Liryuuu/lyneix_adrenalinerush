@@ -252,7 +252,7 @@ function NotifyPlayer(message)
         return
     end
 
-    if Config.Notify.UseOxLib then
+    if Config.Notify.UseOxLib and GetResourceState('ox_lib') == 'started' then
     -- ox_lib notification fallback
         if exports and exports.ox_lib then
             Config.Notify.OxLibFunction(message)            
