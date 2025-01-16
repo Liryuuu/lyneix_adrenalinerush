@@ -185,7 +185,7 @@ function EndAdrenalineRush(player, ByPassInjuryClipset,Clean)
     ApplyDamageProtection(player, false)
 
     -- Notify player if enabled
-    if Config.Notify.Enabled then
+    if Config.Notify.Enabled and not Clean then
         local cooldownMessage = string.gsub(Config.Messages.AdrenalineEnded, "{cooldown}", tostring(Config.Cooldown))
         NotifyPlayer(cooldownMessage)
     end
